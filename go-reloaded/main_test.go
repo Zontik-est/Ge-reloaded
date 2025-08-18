@@ -1,51 +1,9 @@
 package main
 
 import (
-	"fmt"
-	"strings"
 	"testing"
 )
 
-// Debug функция для тестирования отдельных частей
-func TestDebugCommands(t *testing.T) {
-	text := "it was the age of foolishness (cap, 6) , it was"
-	words := strings.Fields(text)
-	
-	fmt.Println("=== DEBUG: Command parsing ===")
-	fmt.Println("Original:", text)
-	fmt.Println("Words:", words)
-	
-	for i, word := range words {
-		fmt.Printf("Word %d: '%s'\n", i, word)
-		if isNumberedCommand(word, "cap") {
-			fmt.Printf("  ✓ Is whole cap command\n")
-		} else if isPartialCommand(word, i, words) {
-			fmt.Printf("  ✓ Is partial cap command\n")
-			cmdType, count := extractPartialCommand(word, i, words)
-			fmt.Printf("  ✓ Command: %s, Count: %d\n", cmdType, count)
-		} else if isNumberPart(word) {
-			fmt.Printf("  ✓ Is number part\n")
-		}
-	}
-	
-	result := processCaseChanges(words)
-	fmt.Println("After processCaseChanges:", result)
-}
-
-func TestDebugPunctuation(t *testing.T) {
-	tests := []string{
-		"I was sitting over there ,and then BAMM !!",
-		"I was thinking ... You were right",
-		"Punctuation tests are ... kinda boring ,what do you think ?",
-	}
-	
-	fmt.Println("=== DEBUG: Punctuation ===")
-	for _, test := range tests {
-		fmt.Printf("Before: '%s'\n", test)
-		result := processPunctuation(test)
-		fmt.Printf("After:  '%s'\n\n", result)
-	}
-}
 
 func TestProcessHexBin(t *testing.T) {
 	tests := []struct {
